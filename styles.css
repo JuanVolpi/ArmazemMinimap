@@ -5,7 +5,8 @@ body {
 
 .container {
     max-width: 600px;
-    margin: 0 auto; /* Centralizar o container */
+    width: fit-content;
+    margin: auto; /* Centralizar o container */
     padding: 20px;
     background-color: #ffffff; /* Cor de fundo do container */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra leve para um efeito moderno */
@@ -20,9 +21,12 @@ body {
 }
 
 .grid-container {
+  margin: auto; /* Centralizar o container */
+    width: fit-content;
     display: grid;
     grid-template-columns: repeat(8, 30px); /* Ajustei para o tamanho desejado, removendo o gap */
     gap: 0; /* Removi o espaçamento entre as células */
+    
 }
 
 .grid-item {
