@@ -1,71 +1,80 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5; /* Cor de fundo mais clara */
+  font-family: "Arial", sans-serif;
+  background-color: #f5f5f5; /* Cor de fundo mais clara */
 }
 
 .container {
-    max-width: 600px;
-    width: fit-content;
-    margin: auto; /* Centralizar o container */
-    padding: 20px;
-    background-color: #ffffff; /* Cor de fundo do container */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra leve para um efeito moderno */
-    border-radius: 12px; /* Borda mais arredondada */
+  max-width: 600px;
+  width: fit-content;
+  margin: auto; /* Centralizar o container */
+  padding: 20px;
+  background-color: #ffffff; /* Cor de fundo do container */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra leve para um efeito moderno */
+  border-radius: 12px; /* Borda mais arredondada */
 }
 
 .title {
-    font-size: 1.8em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #3498db; /* Azul claro */
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #3498db; /* Azul claro */
 }
 
 .grid-container {
   margin: auto; /* Centralizar o container */
-    width: fit-content;
-    display: grid;
-    grid-template-columns: repeat(8, 30px); /* Ajustei para o tamanho desejado, removendo o gap */
-    gap: 0; /* Removi o espaçamento entre as células */
-    
+  margin-bottom: 20px;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(
+    8,
+    30px
+  ); /* Ajustei para o tamanho desejado, removendo o gap */
+  grid-template-rows: repeat(
+    8,
+    30px
+  ); /* Ajustei para o tamanho desejado, removendo o gap */
+  gap: 15px;
 }
 
 .grid-item {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #ddd; /* Cinza claro */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    cursor: pointer;
-    margin: 0;
-    padding: 5;
-    border-radius: 8px; /* Borda mais arredondada */
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd; /* Cinza claro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin: 0;
+  padding: 3pt;
+  text-align: center;
+  font-size: 0.9rem;
+  border-radius: 3px; /* Borda mais arredondada */
 }
 
 .highlighted {
-    background-color: #ffeaa7; /* Amarelo claro para destaque */
-    border-color: #ffeaa7;
+  background-color: #ffeaa7; /* Amarelo claro para destaque */
+  border-color: #ffeaa7;
 }
 
 .minimap-container {
-    display: grid;
-    grid-template-columns: repeat(8, 40px);
-    gap: 5px; /* Adicionei um pequeno espaço entre as células para melhor visibilidade */
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(8, 40px);
+  gap: 5px; /* Adicionei um pequeno espaço entre as células para melhor visibilidade */
+  margin-top: 20px;
 }
 
 .minimap {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #ddd; /* Cinza claro */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8em;
-    margin: 0;
-    padding: 0;
-    border-radius: 10px; /* Borda mais arredondada */
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd; /* Cinza claro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px; /* Borda mais arredondada */
 }
 
 .minimap-best-route {
@@ -79,16 +88,31 @@ body {
 }
 
 .other-shelf {
-    background-color: #e74c3c; /* Vermelho claro para outras prateleiras */
-    border-color: #e74c3c;
+  background-color: #e74c3c; /* Vermelho claro para outras prateleiras */
+  border-color: #e74c3c;
 }
 
 .btn-success {
-    background-color: #27ae60; /* Verde mais escuro para o botão de sucesso */
-    border-color: #27ae60;
+  background-color: #27ae60; /* Verde mais escuro para o botão de sucesso */
+  border-color: #27ae60;
 }
 
 .btn-success:hover {
-    background-color: #219d54; /* Verde mais escuro no hover */
-    border-color: #1f8f4f;
+  background-color: #219d54; /* Verde mais escuro no hover */
+  border-color: #1f8f4f;
+}
+
+code {
+  font-size: 1rem;
+  background-color: black;
+  color: #e4e4e4;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 5px;
+}
+
+.error {
+  color: red;
+  font-size: large;
 }

@@ -32,14 +32,14 @@ let shelves = [
 ];
 
 function createGrid() {
-  const gridElement = document.getElementById('grid');
+  const gridElement = document.getElementById("grid");
 
-  gridElement.innerHTML = '';
+  gridElement.innerHTML = "";
 
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
-      const cell = document.createElement('div');
-      cell.classList.add('grid-item');
+      const cell = document.createElement("div");
+      cell.classList.add("grid-item");
       cell.dataset.x = j + 1;
       cell.dataset.y = i + 1;
       cell.textContent = `${cell.dataset.x},${cell.dataset.y}`;
@@ -50,17 +50,17 @@ function createGrid() {
 }
 
 function createMinimap() {
-  const minimapElement = document.getElementById('minimap');
+  const minimapElement = document.getElementById("minimap");
 
-  minimapElement.innerHTML = '';
+  minimapElement.innerHTML = "";
 
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
-      const cell = document.createElement('div');
-      cell.classList.add('minimap');
+      const cell = document.createElement("div");
+      cell.classList.add("minimap");
       cell.dataset.x = j + 1;
       cell.dataset.y = i + 1;
-      cell.textContent = `${cell.dataset.x},${cell.dataset.y}`;
+      // cell.textContent = `${cell.dataset.x},${cell.dataset.y}`;
 
       minimapElement.appendChild(cell);
     }
@@ -68,29 +68,29 @@ function createMinimap() {
 }
 
 function updateCoordinate() {
-  const input = document.getElementById('coordinatesInput').value;
-  const [x, y] = input.split(',');
+  const input = document.getElementById("coordinatesInput").value;
+  const [x, y] = input.split(",");
 
-  const gridItems = document.querySelectorAll('.grid-item');
-  const minimapItems = document.querySelectorAll('.minimap');
+  const gridItems = document.querySelectorAll(".grid-item");
+  const minimapItems = document.querySelectorAll(".minimap");
 
   gridItems.forEach((item) => {
-    item.classList.remove('highlighted');
+    item.classList.remove("highlighted");
     if (item.dataset.x === x && item.dataset.y === y) {
-      item.classList.add('highlighted');
+      item.classList.add("highlighted");
       initialCoordinate = { x, y };
     }
   });
 
   minimapItems.forEach((item) => {
     item.classList.remove(
-      'minimap-highlighted',
-      'minimap-best-route',
-      'platform',
-      'other-shelf'
+      "minimap-highlighted",
+      "minimap-best-route",
+      "platform",
+      "other-shelf",
     );
     if (item.dataset.x === x && item.dataset.y === y) {
-      item.classList.add('minimap-highlighted');
+      item.classList.add("minimap-highlighted");
     }
   });
   highlightBestRoute();
@@ -125,41 +125,41 @@ function highlightBestRouteToShelf(shelf) {
   if (initialCoordinate) {
     bestRoute = findBestRoute({ x: shelf.x - 1, y: shelf.y });
 
-    const minimapItems = document.querySelectorAll('.minimap');
+    const minimapItems = document.querySelectorAll(".minimap");
 
     minimapItems.forEach((item) => {
-      item.classList.remove('minimap-best-route', 'platform', 'other-shelf');
+      item.classList.remove("minimap-best-route", "platform", "other-shelf");
     });
 
     bestRoute.forEach((coords) => {
       const key = `${coords.x},${coords.y}`;
       const item = document.querySelector(
-        `.minimap[data-x="${coords.x}"][data-y="${coords.y}"]`
+        `.minimap[data-x="${coords.x}"][data-y="${coords.y}"]`,
       );
-
+      item.textContent = `${item.dataset.x},${item.dataset.y}`;
       if (item && !isShelfCell(coords)) {
-        item.classList.add('minimap-best-route');
+        item.classList.add("minimap-best-route");
       }
     });
 
     // Highlight the selected platform
     const selectedPlatform = document.querySelector(
-      `.minimap[data-x="${shelf.x}"][data-y="${shelf.y}"]`
+      `.minimap[data-x="${shelf.x}"][data-y="${shelf.y}"]`,
     );
     if (selectedPlatform) {
-      selectedPlatform.classList.add('platform');
+      selectedPlatform.classList.add("platform");
     }
 
     // Add 'other-shelf' class to prateleiras que não são a selecionada
     const otherShelves = shelves.filter(
-      (shelfItem) => shelfItem.x !== shelf.x || shelfItem.y !== shelf.y
+      (shelfItem) => shelfItem.x !== shelf.x || shelfItem.y !== shelf.y,
     );
     otherShelves.forEach((otherShelf) => {
       const otherShelfItem = document.querySelector(
-        `.minimap[data-x="${otherShelf.x}"][data-y="${otherShelf.y}"]`
+        `.minimap[data-x="${otherShelf.x}"][data-y="${otherShelf.y}"]`,
       );
       if (otherShelfItem) {
-        otherShelfItem.classList.add('other-shelf');
+        otherShelfItem.classList.add("other-shelf");
       }
     });
   }
@@ -171,12 +171,12 @@ function isShelfCell(coords) {
 
 function highlightBestRoute() {
   if (initialCoordinate) {
-    const input = document.getElementById('coordinatesInput').value;
-    const [xInput, yInput] = input.split(',');
+    const input = document.getElementById("coordinatesInput").value;
+    const [xInput, yInput] = input.split(",");
     const target = { x: parseInt(xInput), y: parseInt(yInput) };
 
     const selectedPlatform = shelves.find(
-      (shelf) => shelf.x === target.x && shelf.y === target.y
+      (shelf) => shelf.x === target.x && shelf.y === target.y,
     );
     if (selectedPlatform) {
       highlightBestRouteToShelf(selectedPlatform);
@@ -184,8 +184,28 @@ function highlightBestRoute() {
   }
 }
 
+function getParameterByName(name) {
+  var match = RegExp("[?&]" + name + "=([^&]*)").exec(window.location.search);
+  return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+}
+
 window.onload = function () {
-  createGrid();
-  createMinimap();
-  updateCoordinate();
+  let coordinates = [0, 0];
+
+  if (getParameterByName("cords") !== null) {
+    let xy = getParameterByName("cords").split(",");
+    coordinates = [Number(xy[0]), Number(xy[1])];
+
+    const input = document.getElementById("coordinatesInput");
+    input.setAttribute("value", coordinates);
+
+    createGrid();
+    createMinimap();
+    updateCoordinate();
+    return;
+  }
+
+  const main = document.getElementById("main");
+  main.innerHTML =
+    "<div class='error'>Coordenadas não fornecidas</div><br><div>Utilização: <code>https://url/?cords=4,5</code></div>";
 };
